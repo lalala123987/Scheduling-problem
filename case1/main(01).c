@@ -5,11 +5,11 @@
 
 /* 案例1
  * 要求：
- * N个任务，具有不同时长
+ * N个任务，具有不同任务时长
  * 使总等待时间C最小
  *
  * 使用算法：
- * SJF
+ * FCFS、SJF
  *
  * 程序输出：
  * 1.输入的每个任务时长
@@ -21,6 +21,7 @@ void Manual(int N);               //手动输入任务时长
 void Auto(int N);                 //自动生成任务时长
 int* p0;                          //任务时间数组指针
 int* p1;                          //算法排序后的任务时间指针
+int* FCFS(int* p, int N);          //SJF算法，返回排序后的任务时间指针
 int* SJF(int* p, int N);          //SJF算法，返回排序后的任务时间指针
 int shellSort(int *p, int N);    //希尔排序
 int OperateNum = 0;               //排序运算操作次数
@@ -49,7 +50,19 @@ int main() {
     printf("任务时间：\n");
     for (i = 0; i < N; i++)
         printf("第%d个任务:%d\n",i+1,p0[i]);
-    p1 = SJF(p0,N);
+    state = 0;
+    while (state == 0){
+        printf("使用FCFS算法请输入1，使用SJF算法请输入2");
+        scanf("%d",&ALG);
+        if (ALG == 1){
+            p1 = FCFS(p0,N);
+            state = 1;
+        } else if (ALG == 2){
+            p1 = SJF(p0,N);
+            state = 1;
+        }  else
+            printf("请输入正确的数据！\n");
+    }
     printf("排序后的任务时间：\n");
     for (i = 0; i < N; i++)
         printf("第%d个任务:%d\n",i+1,p1[i]);
@@ -70,6 +83,14 @@ void Auto(int N){
         p0[i] = (rand()%21)+1;//设置范围  1-20
         Sleep(5);
     }
+}
+
+int *FCFS(int *p, int N) {
+    int count = 0;
+    int C = 0;
+    for (int i = 0; i < N; ++i) C = C + (N-i)*p[i];  //计算总等待时间C
+    printf("FCFS算法的总等待时间C：%d\nFCFS算法的总运算次数：%d\n",C,count); //打印总等待时间和总运算次数
+    return p;
 }
 
 int *SJF(int* p, int N){
