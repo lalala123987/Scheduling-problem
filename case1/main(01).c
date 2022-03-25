@@ -3,13 +3,13 @@
 #include <time.h>
 #include <synchapi.h>
 
-/* 案例1
+/* 案例2
  * 要求：
- * N个任务，具有不同任务时长
- * 使总等待时间C最小
+ * N个任务，具有不同任务时长,有不同截止时间
+ * 使总延迟L最小
  *
  * 使用算法：
- * FCFS、SJF
+ * FCFS、SJF、EDD
  *
  * 程序输出：
  * 1.输入的每个任务时长
@@ -21,9 +21,9 @@ void Manual(int N);               //手动输入任务时长
 void Auto(int N);                 //自动生成任务时长
 int* p0;                          //任务时间数组指针
 int* p1;                          //算法排序后的任务时间指针
-int* FCFS(int* p, int N);          //SJF算法，返回排序后的任务时间指针
+int* FCFS(int* p, int N);         //FCFS算法，返回排序后的任务时间指针
 int* SJF(int* p, int N);          //SJF算法，返回排序后的任务时间指针
-int shellSort(int *p, int N);    //希尔排序
+int shellSort(int *p, int N);     //希尔排序
 int OperateNum = 0;               //排序运算操作次数
 
 int main() {
